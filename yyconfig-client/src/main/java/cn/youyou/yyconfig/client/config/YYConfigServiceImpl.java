@@ -1,5 +1,8 @@
 package cn.youyou.yyconfig.client.config;
 
+import org.springframework.cloud.context.environment.EnvironmentChangeEvent;
+import org.springframework.context.ApplicationContext;
+
 import java.util.Map;
 
 /**
@@ -13,7 +16,10 @@ public class YYConfigServiceImpl implements YYConfigService {
      */
     Map<String, String> config;
 
-    public YYConfigServiceImpl(Map<String, String> config) {
+    ApplicationContext applicationContext;
+
+    public YYConfigServiceImpl(ApplicationContext applicationContext, Map<String, String> config) {
+        this.applicationContext = applicationContext;
         this.config = config;
     }
 
@@ -23,5 +29,16 @@ public class YYConfigServiceImpl implements YYConfigService {
 
     public String getProperty(String name) {
         return this.config.get(name);
+    }
+
+    @Override
+    public void onChange(ConfigChangeEvent event) {
+        System.out.println("[YYCONFIG] 监听到配置变更，执行本地配置项变更...");
+        this.config = event.getConfig();
+        if (!this.config.isEmpty()) {
+            System.out.println("[YYCONFIG] fire an EnvironmentChangeEvent with keys:" + config.keySet());
+            // spring cloud对配置项变更的监听，后续触发后会动态变更由@ConfigurationProperties注解注入的配置项（bean）
+            applicationContext.publishEvent(new EnvironmentChangeEvent(config.keySet()));
+        }
     }
 }

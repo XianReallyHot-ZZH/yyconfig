@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 
@@ -17,6 +19,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @EnableConfigurationProperties({YYDemoConfig.class})
 @EnableYYConfig
+@RestController
 public class YyconfigDemoApplication {
 
     @Value("${yy.a}")
@@ -33,6 +36,14 @@ public class YyconfigDemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(YyconfigDemoApplication.class, args);
+    }
+
+    @GetMapping("/demo")
+    public String demo() {
+        return "yy.a = " + a + "\n"
+                + "yy.b = " + b + "\n"
+                + "demo.a = " + yyDemoConfig.getA() + "\n"
+                + "demo.b = " + yyDemoConfig.getB() + "\n";
     }
 
     @Bean

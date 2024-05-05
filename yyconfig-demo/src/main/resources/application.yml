@@ -11,3 +11,14 @@ yy:
   b: b00
   c: c00
 
+logging:
+  level:
+    root: info
+    cn.kimmking: debug
+
+# 配置中心参数
+yyconfig:
+  server: http://localhost:9129
+  app: app1
+  env: dev
+  ns: public

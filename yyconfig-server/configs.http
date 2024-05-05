@@ -6,10 +6,13 @@ POST http://localhost:9129/update?app=app1&env=dev&ns=public
 Content-Type: application/json
 
 {
-  "yy.a": "dev300",
+  "yy.a": "dev888",
   "yy.c": "cc200",
   "yy.d": "dd200"
 }
 
 ### version
 GET http://localhost:9129/version?app=app1&env=dev&ns=public
+
+### demo 8888
+GET http://localhost:8888/demo

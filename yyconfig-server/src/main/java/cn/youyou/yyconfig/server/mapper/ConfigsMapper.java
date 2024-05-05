@@ -18,6 +18,7 @@ public interface ConfigsMapper {
 
     /**
      * 查询指定环境下的对应应用的所有配置
+     *
      * @param app
      * @param env
      * @param ns
@@ -28,6 +29,7 @@ public interface ConfigsMapper {
 
     /**
      * 查询指定环境下的对应应用的指定配置
+     *
      * @param app
      * @param env
      * @param ns
@@ -39,6 +41,7 @@ public interface ConfigsMapper {
 
     /**
      * 插入一条配置信息
+     *
      * @param configs
      * @return
      */
@@ -47,6 +50,7 @@ public interface ConfigsMapper {
 
     /**
      * 更新一条配置信息
+     *
      * @param configs
      * @return
      */
