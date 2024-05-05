@@ -1,5 +1,6 @@
 package cn.youyou.yyconfig.demo;
 
+import cn.youyou.yyconfig.client.annotation.EnableYYConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,10 +16,14 @@ import java.util.Arrays;
 @Slf4j
 @SpringBootApplication
 @EnableConfigurationProperties({YYDemoConfig.class})
+@EnableYYConfig
 public class YyconfigDemoApplication {
 
     @Value("${yy.a}")
     private String a;
+
+    @Value("${yy.b}")
+    private String b;
 
     @Autowired
     private YYDemoConfig yyDemoConfig;
@@ -39,7 +44,9 @@ public class YyconfigDemoApplication {
         // 项目启动完毕打印加载下来的应用业务配置信息
         return args -> {
             log.info("a(from @value) = {}", a);
-            log.info("yyDemoConfig(from @ConfigurationProperties) = {}", yyDemoConfig);
+            log.info("demo.a(from @ConfigurationProperties) = {}", yyDemoConfig.getA());
+            log.info("b(from @value) = {}", b);
+            log.info("demo.b(from @ConfigurationProperties) = {}", yyDemoConfig.getB());
         };
     }
 
