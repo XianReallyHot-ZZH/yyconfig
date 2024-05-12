@@ -22,7 +22,7 @@ import java.util.Arrays;
 @RestController
 public class YyconfigDemoApplication {
 
-    @Value("${yy.a}")
+    @Value("${yy.a}.${yy.c}")
     private String a;
 
     @Value("${yy.b}")
