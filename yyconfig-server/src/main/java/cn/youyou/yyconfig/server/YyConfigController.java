@@ -13,6 +13,9 @@ import java.util.Map;
 public class YyConfigController {
 
     @Autowired
+    DistributedLock lock;
+
+    @Autowired
     ConfigsMapper mapper;
 
     /**
@@ -79,6 +82,16 @@ public class YyConfigController {
                         @RequestParam("env") String env,
                         @RequestParam("ns") String ns) {
         return VERSIONS.getOrDefault(app + "-" + env + "-" + ns, -1L);
+    }
+
+
+    /**
+     * 判断当前服务器是否是主节点
+     * @return
+     */
+    @GetMapping("/isMasterServer")
+    public boolean isMasterServer() {
+        return lock.getLocked().get();
     }
 
 }
